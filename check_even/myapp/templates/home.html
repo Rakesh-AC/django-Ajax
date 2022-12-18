@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>welcome to home</h1>
+    <form action="">
+        <label for="">your number</label>
+        <input type="number" id="num" name="num">
+        <h1 id="even" style="display: none; color: rgb(0, 94, 28);">Even</h1>
+    <h1 id="odd" style="display: none;color: rgb(190, 13, 13);">Odd num</h1>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#num').keyup(function (){
+                $.ajax({
+                    data: $(this).serialize(),
+                    url: "{% url 'check' %}",
+
+                    success: function(responce){
+                        if(responce.even == true){
+                            $("#even").show();
+                            $("#odd").hide();
+                        }
+                        else{
+                            $("#even").hide();
+                            $("#odd").show();
+                        }
+                    },
+                    
+                    error: function(responce){
+                        console.log(responce);
+                    }
+                });
+                return false;
+            })
+        })
+    </script>
+</body>
+</html>
